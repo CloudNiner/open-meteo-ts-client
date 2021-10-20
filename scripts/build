@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+docker run --rm \
+  -v "${PWD}":/local openapitools/openapi-generator-cli generate \
+  -i /local/openapi.yaml \
+  --additional-properties=npmName=open-meteo-ts-client \
+  -g typescript-axios \
+  -o /local/dist
+
+cd dist
+npm install
+npm run build
